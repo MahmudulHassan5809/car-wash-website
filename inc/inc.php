@@ -14,5 +14,7 @@ Session::init();
 	$fm = new Format();
 	$userCategory = new UserCategory();
 	$user = new User();
+	$service = new Service();
+	$category = new Category();
 
 ?>

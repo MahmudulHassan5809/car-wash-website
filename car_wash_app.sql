@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 29, 2019 at 04:34 PM
+-- Generation Time: Jul 30, 2019 at 07:05 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -59,7 +59,8 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`) VALUES
-(4, 'Car Wash');
+(5, 'Car Wash'),
+(6, 'Car Repair');
 
 -- --------------------------------------------------------
 
@@ -70,12 +71,23 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 CREATE TABLE `services` (
   `id` int(11) NOT NULL,
   `name` varchar(150) NOT NULL,
+  `location` varchar(150) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `category_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
   `description` text NOT NULL,
   `price` varchar(20) NOT NULL,
   `image` varchar(255) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `category_id` int(10) UNSIGNED NOT NULL
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `services`
+--
+
+INSERT INTO `services` (`id`, `name`, `location`, `phone`, `category_id`, `user_id`, `description`, `price`, `image`, `date`) VALUES
+(6, 'Washing Car With Resonable Cost', 'Badda', '01635689521', 5, 14, '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\n tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim \r\nveniam,&lt;br&gt;quis nostrud exercitation ullamco laboris nisi ut aliquip ex \r\nea commodo consequat. Duis aute irure dolor in reprehenderit in \r\nvoluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur \r\nsint occaecat cupidatat non proident, sunt in culpa qui officia deserunt\r\n mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\n tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim \r\nveniam,&lt;br&gt;quis nostrud exercitation ullamco laboris nisi ut aliquip ex \r\nea commodo consequat. Duis aute irure dolor in reprehenderit in \r\nvoluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur \r\nsint occaecat cupidatat non proident, sunt in culpa qui officia deserunt\r\n mollit anim id est laborum.&lt;/p&gt;', '2000', '6e0d79a674.jpg', '2019-07-30 12:16:08'),
+(7, 'Car Engine Repair', 'Gulshan', '01632659891', 6, 14, '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo unde molestiae earum labore, repellendus ad, ullam ipsam a tempore quibusdam eaque. Voluptatum praesentium veritatis quisquam quia corporis magnam libero voluptates.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo unde molestiae earum labore, repellendus ad, ullam ipsam a tempore quibusdam eaque. Voluptatum praesentium veritatis quisquam quia corporis magnam libero voluptates.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo unde molestiae earum labore, repellendus ad, ullam ipsam a tempore quibusdam eaque. Voluptatum praesentium veritatis quisquam quia corporis magnam libero voluptates.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo unde molestiae earum labore, repellendus ad, ullam ipsam a tempore quibusdam eaque. Voluptatum praesentium veritatis quisquam quia corporis magnam libero voluptates.&lt;br&gt;&lt;/p&gt;', '10000', '271d3fdc29.jpg', '2019-07-30 13:15:31');
 
 -- --------------------------------------------------------
 
@@ -84,7 +96,7 @@ CREATE TABLE `services` (
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `full_name` varchar(150) NOT NULL,
   `email` varchar(150) NOT NULL,
   `phone` varchar(20) NOT NULL,
@@ -100,7 +112,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `full_name`, `email`, `phone`, `user_type`, `password`, `reset_code`, `is_active`, `date`) VALUES
-(12, 'Mahmudul Hassan', 'mahmudul.hassan240@gmail.com', '01630811624', 3, '$2y$10$JcSm8RXsNM4cx8Tnw/v4FOw6Aite0C3aHhogZyBEH6qoWkUNevl0i', '', 1, '2019-07-29 12:53:12');
+(14, 'Mahmudul Hassan', 'mahmudul.hassan240@gmail.com', '01630811624', 1, '$2y$10$rLUcMVoQtbS.b0xx.5Bfo.6pjH7LgnRGIoJL6vxRCUvFPNIP6b9Tm', '', 1, '2019-07-30 08:43:22'),
+(15, 'Jhon Doe', 'jhon@gmail.com', '01630811624', 1, '$2y$10$NgqQ0XEyKT38FsQBHlMe7OzM9Z.AQLOcIieC5kDFECJ8lHD0sVRe6', '', 1, '2019-07-30 14:53:33');
 
 -- --------------------------------------------------------
 
@@ -142,7 +155,8 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `services`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_category_id` (`category_id`);
+  ADD KEY `fk_category_id` (`category_id`),
+  ADD KEY `fk_user_id` (`user_id`);
 
 --
 -- Indexes for table `users`
@@ -171,19 +185,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `user_categories`
@@ -199,7 +213,8 @@ ALTER TABLE `user_categories`
 -- Constraints for table `services`
 --
 ALTER TABLE `services`
-  ADD CONSTRAINT `fk_category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `users`

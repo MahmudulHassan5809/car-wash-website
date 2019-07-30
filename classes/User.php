@@ -147,6 +147,7 @@ class User
 	    			}else{
 	    				Session::set("userLogin",true);
 		                Session::set("userId",$value['id']);
+		                Session::set("userType",$value['user_type']);
 		                Session::set("userName",$value['full_name']);
 	    			}
 	    			$this->fm->redirect('index.php');
@@ -281,8 +282,7 @@ class User
 
 	}
 
-	public function getUserData()
-	{
+	public function getUserData(){
 		if (isset($_COOKIE['user'])) {
 			$data = unserialize($_COOKIE['user']);
 			$id = $data['id'];
@@ -295,12 +295,41 @@ class User
 		}
 	}
 
+	public function getUserIdAndUserType(){
+		if (isset($_COOKIE['user'])) {
+			$data = unserialize($_COOKIE['user']);
+			$userId = $data['id'];
+			$userType = $data['user_type'];
+			return array($userId,$userType);
+		}
+		return array(Session::get('userId'),Session::get('userType'));
+	}
+
+	public function getUserCategoryName($userId,$userType){
+		$query = "SELECT name FROM user_categories LEFT JOIN users ON users.id='$userId' WHERE user_categories.id='$userType'";
+		$result = $this->db->select($query);
+		if($result){
+			while ($value = $result->fetch_assoc()) {
+				return $value['name'];
+
+			}
+		}
+	}
+
+	public function checkServieProvider(){
+		list($x,$y) = $this->getUserIdAndUserType();
+		if ($this->getUserCategoryName($x,$y) !== 'Service Provider') {
+			$this->fm->redirect('index.php');
+		}
+	}
+
 	public function logout(){
 		if(isset($_COOKIE['user'])){
           setcookie('user', '', time() - (86400 * 30), '/');
      	}
 		Session::destroy();
 	}
+
 
 	public function send_mail($detail=array())
 	{
@@ -338,6 +367,8 @@ class User
 		    }
 		}
 	}
+
+
 
 
 } // End Class

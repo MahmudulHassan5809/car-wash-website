@@ -13,6 +13,14 @@
 	<meta charset="UTF-8">
 	<title><?php echo $fm->title(); ?></title>
 
+	<link rel="stylesheet" href="assets/css/font.css">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/mdb.min.css">
+	<link rel="stylesheet" href="assets/css/summernote.css">
+	<link rel="stylesheet" href="assets/css/style.css">
+
+
+	</style>
 </head>
 <body>
 

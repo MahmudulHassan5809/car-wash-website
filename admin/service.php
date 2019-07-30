@@ -15,7 +15,6 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 pt-5 mb-3">
-				<a href="add_service.php" class="btn-floating deep-purple"><i class="fas fa-plus fa-3x" title="Add Service" aria-hidden="true"></i></a>
 
 				<?php echo $fm->getMsg('msg'); ?>
 
@@ -26,6 +25,7 @@
 						<tr>
 	                        <th class="th-sm">No</th>
 	                        <th class="th-sm">Name</th>
+	                        <th class="th-sm">Service Category</th>
 	                        <th class="th-sm">Price</th>
 	                        <th class="th-sm">Description</th>
 	                        <th class="th-sm">Image</th>
@@ -46,11 +46,12 @@
 					    ?>
 					    	<td><?php echo($i) ?></td>
 					    	<td><?php echo($value['name']); ?></td>
+					    	<td><?php echo($value['cat_name']); ?></td>
 					    	<td><?php echo($value['price']); ?></td>
 					    	<td><?php echo htmlspecialchars_decode($fm->textShorten($value['description'],100)); ?></td>
 					    	<td>
 					    		<img
-					    		src="<?php echo($value['image']); ?>"
+					    		src="upload/<?php echo($value['image']); ?>"
 					    		alt="<?php echo($value['name']); ?>"
 					    		class="img-fluid" style="width: 150px;">
 					    	</td>
