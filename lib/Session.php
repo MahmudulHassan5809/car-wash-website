@@ -46,7 +46,7 @@
         self::init();
         if (self::get("userLogin") == false && !isset($_COOKIE['user'])) {
            self::destroy();
-           header("Location:login.php");
+           header("Location:index.php");
         }
     }
 

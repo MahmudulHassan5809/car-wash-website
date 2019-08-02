@@ -49,28 +49,22 @@ class Format
     public function title(){
         $path = $_SERVER['SCRIPT_FILENAME'];
         $title = basename($path, '.php');
-        //$title = str_replace('_', ' ', $title);
-        if ($title == 'login') {
-           $title = 'Login';
-        }elseif ($title == 'index') {
-           $title = 'Home';
-        }elseif ($title == 'add_service') {
-           $title = 'Add Service';
-        }elseif ($title == 'add_category') {
-           $title = 'Add Category';
+
+        $title = str_replace('_', ' ', $title);
+
+        $title_array = explode(" ", $title);
+
+        if(count($title_array) < 2){
+            if($title == 'index') {
+               $title = 'Home';
+            }else{
+                $title = ucfirst($title);
+            }
+         }else{
+             $title = ucfirst($title_array[0]) . ' ' .ucfirst($title_array[1]);
         }
-        elseif ($title == 'user_add_category') {
-           $title = 'Add User Category';
-        }elseif ($title == 'user_category') {
-           $title = 'User Category';
-        }elseif ($title == 'user_edit_category') {
-           $title = 'Edit User Category';
-        }elseif ($title == 'forget_password') {
-           $title = 'Forget Password';
-        }elseif ($title == 'reset_password') {
-           $title = 'Reset Password';
-        }
-        return $title = ucfirst($title);
+
+        return $title;
     }
 
 

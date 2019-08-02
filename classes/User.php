@@ -319,9 +319,12 @@ class User
 	public function checkServieProvider(){
 		list($x,$y) = $this->getUserIdAndUserType();
 		if ($this->getUserCategoryName($x,$y) !== 'Service Provider') {
+			$this->fm->setMsg('msg_notify','You Are Not Registered As Service Provider','danger');
 			$this->fm->redirect('index.php');
 		}
 	}
+
+
 
 	public function logout(){
 		if(isset($_COOKIE['user'])){

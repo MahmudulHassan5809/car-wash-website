@@ -159,9 +159,11 @@
 			$id=$this->fm->validation($id);
        		$id=mysqli_real_escape_string($this->db->link,$id);
        		$query="SELECT services.*,
+       				services.user_id as provider_id,
 					categories.name as cat_name,
 					categories.id as cat_id,
 					users.full_name as user_name,
+					users.email as email,
 					users.id as user_id
 					FROM services
 					INNER JOIN categories
@@ -182,6 +184,7 @@
 			$user_id = (Session::get('userId') !== false) ? Session::get('userId') : $id;
 
 			$query="SELECT services.*,
+					services.id as service_id,
 					categories.name as cat_name,
 					categories.id as cat_id
 					FROM services
@@ -369,6 +372,9 @@
 
 
 	}
+
+
+
 
 
 	}// class End

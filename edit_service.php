@@ -4,6 +4,10 @@
 
 <?php include 'inc/carousel.php'; ?>
 
+<!-- Check Session -->
+<?php Session::checkUserSession(); ?>
+<!-- End Of Check Session -->
+
 <?php $user->checkServieProvider(); ?>
 
 <?php

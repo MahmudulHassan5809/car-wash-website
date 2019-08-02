@@ -47,6 +47,12 @@
                             <i class="fas fa-sign-out-alt fa-lg"></i>
                         </a>
                     </li>
+                <?php else: ?>
+                    <li class="nav-item">
+                        <a href="<?php echo(URLROOT);?>/login.php" class="nav-link" title="Login">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </a>
+                    </li>
                 <?php endif ?>
 
 

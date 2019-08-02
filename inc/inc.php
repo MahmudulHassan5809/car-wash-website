@@ -16,5 +16,6 @@ Session::init();
 	$user = new User();
 	$service = new Service();
 	$category = new Category();
+	$request = new Request();
 
 ?>

@@ -2,9 +2,7 @@
 <?php include 'inc.php'; ?>
 <!-- End Of include.php -->
 
-<!-- Check Session -->
-<?php Session::checkUserSession(); ?>
-<!-- End Of Check Session -->
+
 
 
 <!DOCTYPE html>

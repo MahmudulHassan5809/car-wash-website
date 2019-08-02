@@ -14,6 +14,7 @@
 		<div class="mt-5 wow fadeIn">
 			<div class="row">
 				<div class="col-md-12">
+					<?php echo $fm->getMsg('msg_notify'); ?>
 					<h2 class="text-danger text-center mb-4">Serv<i class="fas fa-tools"></i>ices</h2>
 					<p class="lead text-justify text-center mb-5">
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero officia ut nemo minus aspernatur a fugit commodi, velit dolore incidunt repudiandae amet saepe quo non quos modi, ab voluptatem quasi.
@@ -52,6 +53,12 @@
 
 									    </p>
 									    <!-- Link -->
+									    <a href="request.php?id=<?php echo $value['id'] ;?>" class="text-info d-flex justify-content-start">
+									    	<h5>
+										    	Request For Service
+										    </h5>
+										</a>
+
 									    <a href="service.php?id=<?php echo $value['id'] ;?>" class="black-text d-flex justify-content-end"><h5>Read more <i class="fas fa-angle-double-right"></i></h5></a>
 
 									</div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 30, 2019 at 07:05 PM
+-- Generation Time: Aug 02, 2019 at 08:36 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -65,11 +65,33 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `requests`
+--
+
+CREATE TABLE `requests` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `provider_id` int(10) UNSIGNED NOT NULL,
+  `service_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `requests`
+--
+
+INSERT INTO `requests` (`id`, `provider_id`, `service_id`, `user_id`, `date`) VALUES
+(2, 14, 7, 16, '2019-08-02 18:16:56'),
+(3, 14, 6, 16, '2019-08-02 18:33:45');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `services`
 --
 
 CREATE TABLE `services` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `name` varchar(150) NOT NULL,
   `location` varchar(150) NOT NULL,
   `phone` varchar(15) NOT NULL,
@@ -113,7 +135,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `full_name`, `email`, `phone`, `user_type`, `password`, `reset_code`, `is_active`, `date`) VALUES
 (14, 'Mahmudul Hassan', 'mahmudul.hassan240@gmail.com', '01630811624', 1, '$2y$10$rLUcMVoQtbS.b0xx.5Bfo.6pjH7LgnRGIoJL6vxRCUvFPNIP6b9Tm', '', 1, '2019-07-30 08:43:22'),
-(15, 'Jhon Doe', 'jhon@gmail.com', '01630811624', 1, '$2y$10$NgqQ0XEyKT38FsQBHlMe7OzM9Z.AQLOcIieC5kDFECJ8lHD0sVRe6', '', 1, '2019-07-30 14:53:33');
+(15, 'Jhon Doe', 'jhon@gmail.com', '01630811624', 1, '$2y$10$NgqQ0XEyKT38FsQBHlMe7OzM9Z.AQLOcIieC5kDFECJ8lHD0sVRe6', '', 1, '2019-07-30 14:53:33'),
+(16, 'Mark Doe', 'mark@gmail.com', '01630811624', 3, '$2y$10$fxbfLZcxqOJ/V289zyoV/uhlt..iQotKp0YutaTVty06sfMr1Id0G', '', 1, '2019-08-01 16:02:38');
 
 -- --------------------------------------------------------
 
@@ -149,6 +172,15 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `requests`
+--
+ALTER TABLE `requests`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_user_id_2` (`user_id`),
+  ADD KEY `fk_service_id` (`service_id`),
+  ADD KEY `fk_provider_id` (`provider_id`);
 
 --
 -- Indexes for table `services`
@@ -188,16 +220,22 @@ ALTER TABLE `categories`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `requests`
+--
+ALTER TABLE `requests`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `user_categories`
@@ -208,6 +246,14 @@ ALTER TABLE `user_categories`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `requests`
+--
+ALTER TABLE `requests`
+  ADD CONSTRAINT `fk_provider_id` FOREIGN KEY (`provider_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_user_id_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `services`

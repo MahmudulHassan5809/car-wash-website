@@ -4,6 +4,8 @@
 
 <?php include 'inc/carousel.php'; ?>
 
+
+
 <?php
 	require 'vendor/autoload.php';
 	use Carbon\Carbon;
@@ -64,3 +66,5 @@
 		</div>
 	</div>
 </main>
+
+<?php include 'inc/footer.php'; ?>
