@@ -83,6 +83,35 @@ class Request
    		return $result;
 	}
 
+
+	public function getAllRequestForUser(){
+
+		if (isset($_COOKIE['user'])) {
+				$data = unserialize($_COOKIE['user']);
+				$id = $data['id'];
+			}
+		$user_id = (Session::get('userId') !== false) ? Session::get('userId') : $id;
+
+		$query="SELECT requests.id as request_id,
+				requests.date as request_date,
+				users.full_name as user_name,
+				users.email as email,
+				users.phone as phone,
+				users.id as user_id,
+				services.name as service_name,
+				services.phone as service_phone,
+				services.id as service_id
+				FROM requests
+				INNER JOIN services
+				on requests.service_id = services.id
+				INNER JOIN users
+				on requests.user_id = users.id
+				WHERE requests.user_id = '$user_id'
+				order by requests.id desc";
+   		$result=$this->db->select($query);
+   		return $result;
+	}
+
 	public function send_mail($detail=array())
 	{
 		if (!empty($detail['to']) && !empty($detail['message']) && !empty($detail['from'])) {

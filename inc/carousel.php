@@ -29,11 +29,11 @@
       </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-          <i class="fas fa-arrow-left"></i>
+          <i class="fas fa-arrow-left fa-2x"></i>
           <span class="sr-only">Previous</span>
         </a>
     <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-          <i class="fas fa-arrow-right"></i>
+          <i class="fas fa-arrow-right fa-2x"></i>
           <span class="sr-only">Next</span>
         </a>
   </div>

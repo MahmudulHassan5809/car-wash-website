@@ -23,9 +23,12 @@
                   </a>
                 </li>
                 <?php if (Session::get('userLogin') == true || isset($_COOKIE['user'])): ?>
-                    <li class="nav-item">
-                      <a class="nav-link" href="<?php echo URLROOT ?>/add_service.php">Add Service</a>
-                    </li>
+                    <?php if ($user->checkNormalUser() === false): ?>
+                        <li class="nav-item">
+                          <a class="nav-link" href="<?php echo URLROOT ?>/add_service.php">Add Service</a>
+                        </li>
+                    <?php endif ?>
+
 
                 <?php endif ?>
 
@@ -35,12 +38,20 @@
             <ul class="navbar-nav nav-flex-icons">
 
                 <?php if (Session::get('userLogin') == true || isset($_COOKIE['user'])): ?>
+                    <?php if ($user->checkNormalUser() === false): ?>
+                        <li class="nav-item">
+                            <a href="<?php echo(URLROOT);?>/provider_dashboard.php" class="nav-link" title="Provider Dashboard">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </a>
+                        </li>
+                     <?php endif ?>
+                        <li class="nav-item">
+                            <a href="<?php echo(URLROOT);?>/user_dashboard.php" class="nav-link" title="User Dashboard">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a href="<?php echo(URLROOT);?>/provider_dashboard.php" class="nav-link" title="Dashboard">
-                            <i class="fas fa-chalkboard-teacher"></i>
-                        </a>
-                    </li>
+
 
                     <li class="nav-item">
                         <a href="<?php echo(URLROOT);?>/logout.php?action=logout" class="nav-link" title="logout">

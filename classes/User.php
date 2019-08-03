@@ -324,7 +324,13 @@ class User
 		}
 	}
 
-
+	public function checkNormalUser(){
+		list($x,$y) = $this->getUserIdAndUserType();
+		if ($this->getUserCategoryName($x,$y) === 'User') {
+			return true;
+		}
+		return false;
+	}
 
 	public function logout(){
 		if(isset($_COOKIE['user'])){
