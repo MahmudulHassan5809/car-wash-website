@@ -374,6 +374,21 @@
 	}
 
 
+	public function serviceByCategory($categoryId){
+		$categoryId=$this->fm->validation($categoryId);
+	    $categoryId=mysqli_real_escape_string($this->db->link,$categoryId);
+
+		$query="SELECT
+       				services.id as service_id,
+					services.image as image
+					FROM services
+					WHERE services.category_id = '$categoryId'
+					ORDER BY RAND() LIMIT 4";
+		$result=$this->db->select($query);
+		return $result;
+	}
+
+
 
 
 

@@ -26,43 +26,69 @@
 <main>
 	<div class="container">
 		<div class="mt-5 wow fadeIn">
-			<div class="row">
-				<div class="col-md-12">
-					<?php
-					$result = $service->getServiceById($id);
-				    if($result){
-				      while ($value=$result->fetch_assoc()) {
-					?>
-						<h1 class="text-danger text-center">
-							<i class="fas fa-tools"></i>
-							<?php echo $value['name']; ?>
-						</h1>
-						<hr class="hr-dark mb-5">
-						<img class="img-fluid w-100 h-50 mb-5" src="admin/upload/<?php echo $value['image'] ?>" alt="">
-
+			<?php
+			$result = $service->getServiceById($id);
+			if($result){
+				while ($value=$result->fetch_assoc()) {
+			?>
+				<h1 class="my-4">
+				    <i class="fas fa-tools"></i>
+					<?php echo $value['name']; ?>
+				</h1>
+				<hr class="hr-dark">
+				<div class="row">
+					<div class="col-md-5">
+						<img class="img-fluid" src="admin/upload/<?php echo $value['image'] ?>" alt="">
+					</div>
+					<div class="col-md-7">
+						<h3 class="my-3">Service Description</h3>
 						<?php $desc = htmlspecialchars_decode($value['description']); ?>
-
-						<?php echo $Parsedown->text($desc); ?>
-
 						<p>
-							Price :&nbsp&nbsp&nbsp&nbsp<i class="fas fa-dollar-sign"></i> <?php echo $value['price']; ?> TK
+							<?php echo $Parsedown->text($desc); ?>
 						</p>
+						<h3 class="my-3">Service Details</h3>
+						<ul>
+					        <li>
+					        	Price :&nbsp&nbsp&nbsp&nbsp<i class="fas fa-dollar-sign"></i> <?php echo $value['price']; ?> TK
+					        </li>
+					        <li>
+					        	Location :&nbsp&nbsp&nbsp&nbsp<i class="fas fa-map-marker"></i></i> <?php echo $value['location']; ?>
+					        </li>
+					        <li>
+					        	Contact No :&nbsp&nbsp&nbsp&nbsp<i class="fas fa-phone"></i>  <?php echo $value['phone']; ?>
+					        </li>
+					        <li>
+					        	Service Added At : <?php echo Carbon::parse($value['date'])->diffForHumans(); ?>
 
-						<p>
-							Location :&nbsp&nbsp&nbsp&nbsp<i class="fas fa-map-marker"></i></i> <?php echo $value['location']; ?>
-						</p>
-
-						<p>
-							Contact No :&nbsp&nbsp&nbsp&nbsp<i class="fas fa-phone"></i>  <?php echo $value['phone']; ?>
-						</p>
-
-						<p>
-							Service Added At : <?php echo Carbon::parse($value['date'])->diffForHumans(); ?>
-						</p>
-
-					<?php } } ?>
+					        </li>
+					    </ul>
+					</div>
 				</div>
+
+
+
+			 <!-- Related Projects Row -->
+			<h3 class="my-4">Related Services (<?php echo $value['cat_name'] ?>)</h3>
+
+			<div class="row">
+				<?php
+					$serviceByCategory = $service->serviceByCategory($value['cat_id']);
+					if($serviceByCategory){
+						while ($Categoryservice = $serviceByCategory->fetch_assoc()) {
+				?>
+				    <div class="col-md-3 col-sm-6 mb-4">
+				      <a href="service.php?id=<?php echo $Categoryservice['service_id'] ?>">
+				            <img class="img-fluid" src="admin/upload/<?php echo $Categoryservice['image'] ?>" alt="">
+				          </a>
+				    </div>
+
+				<?php } }  ?>
+
+
+
 			</div>
+			<!-- /.row -->
+			<?php } } ?>
 		</div>
 	</div>
 </main>
