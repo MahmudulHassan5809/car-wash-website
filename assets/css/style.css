@@ -5,19 +5,16 @@ body{
   font-size: 20px;
 }
 
-html,
-body,
-.view {
-  height: 100%; }
+.carousel-item {
+  height: 65vh;
+  min-height: 350px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 
-/* Full Page Carousel itself*/
-.carousel {
-  height: 100%; }
-  .carousel .carousel-inner {
-    height: 100%; }
-    .carousel .carousel-inner .carousel-item,
-    .carousel .carousel-inner .active {
-      height: 100%; }
 
 /* Navbar animation */
 .navbar {
