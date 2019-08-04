@@ -30,7 +30,7 @@
 					</thead>
 					<tbody>
 						<?php
-							$allProvider = $service->allServiceProvider();
+							$allProvider = $service->allUsers();
 							if($allProvider){
 								while($value = $allProvider->fetch_assoc()){
 

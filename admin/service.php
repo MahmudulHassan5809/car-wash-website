@@ -40,7 +40,7 @@
 						<tr>
 						<?php
 							$i = 0;
-							$result=$service->getAllService();
+							$result=$service->getAllServiceForAdmin();
 					        if($result){
 					        	$i++;
 					        	while($value=$result->fetch_assoc()) {

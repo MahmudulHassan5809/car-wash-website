@@ -9,6 +9,13 @@
 	use Carbon\Carbon;
 ?>
 
+<?php
+	$page = !empty($_GET['page']) ? (int)$_GET['page'] : 1 ;
+	$totat = $service->items_total_count();
+	$paginate = new Paginate($page,$totat);
+
+?>
+
 <main>
 	<div class="container">
 		<div class="mt-5 wow fadeIn">
@@ -21,7 +28,7 @@
 					</p>
 
 					<div class="row">
-						<?php $result = $service->getAllService();
+						<?php $result = $paginate->getAllServicesForIndex();
 							if ($result) {
 								while ($value = $result->fetch_assoc()) {
 
@@ -71,9 +78,16 @@
 						<?php } } ?>
 					</div>
 
-				</div>
+
+					<?php  if ($paginate->page_total() > 0) : ?>
+						<?php include 'inc/paginate.php'; ?>
+	                <?php endif ?>
+
+
+	              </div>
 			</div>
 		</div>
+
 	</div>
 </main>
 

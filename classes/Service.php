@@ -3,6 +3,7 @@
 	include_once ($filepath.'/../lib/Database.php');
 	include_once ($filepath.'/../helpers/Format.php') ;
 
+
 	include_once 'Category.php';
 ?>
 
@@ -143,7 +144,25 @@
 		}
 
 
-		public function getAllService(){
+		public function getAllServiceForIndex(){
+			$query="SELECT * FROM services
+					ORDER BY date DESC
+					";
+
+			$result = $this->db->select($query);
+
+			return $result;
+		}
+
+		public function items_total_count(){
+			$query = "SELECT COUNT(*) FROM services";
+			$result = $this->db->select($query);
+			$row = mysqli_fetch_array($result);
+			return array_shift($row);
+
+		}
+
+		public function getAllServiceForAdmin(){
 			$query="SELECT services.*,
 					services.id as service_id,
 					services.phone as service_phone,
@@ -208,7 +227,7 @@
 		}
 
 
-		public function allServiceProvider(){
+		public function allUsers(){
 			$query="SELECT users.*,
 					users.id as user_id,
 					user_categories.name as user_type
@@ -256,161 +275,161 @@
 			return $result;
 		}
 
-	public function editService($data,$file,$id){
-		$errors = array();
+		public function editService($data,$file,$id){
+			$errors = array();
 
-   		$name=$this->fm->validation($data['name']);
-   		$name=mysqli_real_escape_string($this->db->link,$name);
+	   		$name=$this->fm->validation($data['name']);
+	   		$name=mysqli_real_escape_string($this->db->link,$name);
 
-   		$location=$this->fm->validation($data['location']);
-   		$location=mysqli_real_escape_string($this->db->link,$location);
+	   		$location=$this->fm->validation($data['location']);
+	   		$location=mysqli_real_escape_string($this->db->link,$location);
 
-   		$phone=$this->fm->validation($data['phone']);
-   		$phone=mysqli_real_escape_string($this->db->link,$phone);
+	   		$phone=$this->fm->validation($data['phone']);
+	   		$phone=mysqli_real_escape_string($this->db->link,$phone);
 
-   		$category_id=$this->fm->validation($data['category_id']);
-   		$category_id=mysqli_real_escape_string($this->db->link,$category_id);
+	   		$category_id=$this->fm->validation($data['category_id']);
+	   		$category_id=mysqli_real_escape_string($this->db->link,$category_id);
 
-   		$price=$this->fm->validation($data['price']);
-   		$price=mysqli_real_escape_string($this->db->link,$price);
+	   		$price=$this->fm->validation($data['price']);
+	   		$price=mysqli_real_escape_string($this->db->link,$price);
 
-   		$description=$this->fm->validation($data['description']);
-   		$description=mysqli_real_escape_string($this->db->link,$description);
+	   		$description=$this->fm->validation($data['description']);
+	   		$description=mysqli_real_escape_string($this->db->link,$description);
 
-   		$id=$this->fm->validation($id);
-   		$id=mysqli_real_escape_string($this->db->link,$id);
+	   		$id=$this->fm->validation($id);
+	   		$id=mysqli_real_escape_string($this->db->link,$id);
 
 
-   		if (isset($_COOKIE['user'])) {
-			$data = unserialize($_COOKIE['user']);
-			$userId = $data['id'];
-		}
-		$user_id = (Session::get('userId') !== false) ? Session::get('userId') : $userId;
-
-   		$permited  = array('jpg', 'jpeg', 'png', 'gif');
-		$file_name = $file['image']['name'];
-	    $file_size = $file['image']['size'];
-	    $file_temp = $file['image']['tmp_name'];
-
-	    $div = explode('.', $file_name);
-	    $file_ext = strtolower(end($div));
-	    $unique_image = substr(md5(time()), 0, 10).'.'.$file_ext;
-	    $uploaded_image = "admin/upload/".$unique_image;
-
-		//Name Errors
-   		if (empty($name)) {
-	  		$errors['name_error'] = "Name Field Must Be Filled";
-	  	}
-
-	  	//Location Errors
-   		if (empty($location)) {
-	  		$errors['location_error'] = "Please Add A Service Location";
-	  	}
-
-	  	//Phone Errors
-   		if (empty($phone)) {
-	  		$errors['phone_error'] = "Please Add A Service Phone Number";
-	  	}
-
-	  	//Category Errors
-   		if (empty($category_id)) {
-	  		$errors['category_error'] = "Please Add A Service Category";
-	  	}
-
-	  	//Price Errors
-   		if (empty($price)) {
-	  		$errors['price_error'] = "Price Field Must Be Filled";
-	  	}else if(!filter_var($price, FILTER_VALIDATE_INT)){
-	    	$errors['price_error'] = "Price Field Must Be Integer";
-	    }
-
-	    //Description Errors
-   		if (empty($description)) {
-	  		$errors['description_error'] = "Please Add A Description";
-	  	}
-
-	    if(!empty($file_name)){
-			//File Errors
-	   		if (empty($file_name)) {
-		  		$errors['file_error'] = "Please Upload An Image";
-		  	}else if ($file_size >1048567) {
-	       		$errors['file_error'] = 'Image Size should be less then 1MB!';
-	       	}else if(in_array($file_ext, $permited) === false){
-	       		$errors['file_error'] = 'You can upload only'.implode(', ', $permited);
-	       	}
-	    }
-
-	    if(count($errors) == 0){
-			if(!empty($file_name)){
-				$query="SELECT image FROM services where id='$id'";
-				$getdata=$this->db->select($query);
-		  		if($getdata){
-		  			while ($value=$getdata->fetch_assoc()) {
-				    	$dellink=$value['image'];
-				    	unlink('admin/upload' . $dellink);
-		      		}
-		    	}
-		    	move_uploaded_file($file_temp, $uploaded_image);
-				$query="UPDATE services
-                    set
-                    name='$name',
-                    location='$location',
-                    phone='$phone',
-                    category_id='$category_id',
-                    description='$description',
-                    price='$price',
-                    image='$unique_image'
-                    WHERE id='$id' AND user_id='$user_id'";
-                $result=$this->db->update($query);
-                if($result){
-                	$this->fm->setMsg('msg','Service Updated SuccessFully!!');
-                	$this->fm->redirect('service.php');
-                }else{
-                	$this->fm->setMsg('msg_notiffy','Something WentWrong!!');
-                	$this->fm->redirect('service.php');
-                }
-			}else{
-				$query="UPDATE services
-                    set
-                    name='$name',
-                    location='$location',
-                    phone='$phone',
-                    category_id='$category_id',
-                    user_id='$user_id',
-                    description='$description',
-                    price='$price'
-                    WHERE id='$id' AND user_id='$user_id'";
-                $result=$this->db->update($query);
-                if($result){
-                	$this->fm->setMsg('msg','Service Updated SuccessFully!!');
-                	$this->fm->redirect('service.php');
-                }else{
-                	$this->fm->setMsg('msg_notiffy','Something WentWrong!!');
-                	$this->fm->redirect('service.php');
-                }
+	   		if (isset($_COOKIE['user'])) {
+				$data = unserialize($_COOKIE['user']);
+				$userId = $data['id'];
 			}
-	    }else{
-	    	$this->fm->setMsg('errors',$errors);
-	    	$this->fm->redirect('edit_service.php?id='. $id );
-	    }
+			$user_id = (Session::get('userId') !== false) ? Session::get('userId') : $userId;
+
+	   		$permited  = array('jpg', 'jpeg', 'png', 'gif');
+			$file_name = $file['image']['name'];
+		    $file_size = $file['image']['size'];
+		    $file_temp = $file['image']['tmp_name'];
+
+		    $div = explode('.', $file_name);
+		    $file_ext = strtolower(end($div));
+		    $unique_image = substr(md5(time()), 0, 10).'.'.$file_ext;
+		    $uploaded_image = "admin/upload/".$unique_image;
+
+			//Name Errors
+	   		if (empty($name)) {
+		  		$errors['name_error'] = "Name Field Must Be Filled";
+		  	}
+
+		  	//Location Errors
+	   		if (empty($location)) {
+		  		$errors['location_error'] = "Please Add A Service Location";
+		  	}
+
+		  	//Phone Errors
+	   		if (empty($phone)) {
+		  		$errors['phone_error'] = "Please Add A Service Phone Number";
+		  	}
+
+		  	//Category Errors
+	   		if (empty($category_id)) {
+		  		$errors['category_error'] = "Please Add A Service Category";
+		  	}
+
+		  	//Price Errors
+	   		if (empty($price)) {
+		  		$errors['price_error'] = "Price Field Must Be Filled";
+		  	}else if(!filter_var($price, FILTER_VALIDATE_INT)){
+		    	$errors['price_error'] = "Price Field Must Be Integer";
+		    }
+
+		    //Description Errors
+	   		if (empty($description)) {
+		  		$errors['description_error'] = "Please Add A Description";
+		  	}
+
+		    if(!empty($file_name)){
+				//File Errors
+		   		if (empty($file_name)) {
+			  		$errors['file_error'] = "Please Upload An Image";
+			  	}else if ($file_size >1048567) {
+		       		$errors['file_error'] = 'Image Size should be less then 1MB!';
+		       	}else if(in_array($file_ext, $permited) === false){
+		       		$errors['file_error'] = 'You can upload only'.implode(', ', $permited);
+		       	}
+		    }
+
+		    if(count($errors) == 0){
+				if(!empty($file_name)){
+					$query="SELECT image FROM services where id='$id'";
+					$getdata=$this->db->select($query);
+			  		if($getdata){
+			  			while ($value=$getdata->fetch_assoc()) {
+					    	$dellink=$value['image'];
+					    	unlink('admin/upload' . $dellink);
+			      		}
+			    	}
+			    	move_uploaded_file($file_temp, $uploaded_image);
+					$query="UPDATE services
+	                    set
+	                    name='$name',
+	                    location='$location',
+	                    phone='$phone',
+	                    category_id='$category_id',
+	                    description='$description',
+	                    price='$price',
+	                    image='$unique_image'
+	                    WHERE id='$id' AND user_id='$user_id'";
+	                $result=$this->db->update($query);
+	                if($result){
+	                	$this->fm->setMsg('msg','Service Updated SuccessFully!!');
+	                	$this->fm->redirect('service.php');
+	                }else{
+	                	$this->fm->setMsg('msg_notiffy','Something WentWrong!!');
+	                	$this->fm->redirect('service.php');
+	                }
+				}else{
+					$query="UPDATE services
+	                    set
+	                    name='$name',
+	                    location='$location',
+	                    phone='$phone',
+	                    category_id='$category_id',
+	                    user_id='$user_id',
+	                    description='$description',
+	                    price='$price'
+	                    WHERE id='$id' AND user_id='$user_id'";
+	                $result=$this->db->update($query);
+	                if($result){
+	                	$this->fm->setMsg('msg','Service Updated SuccessFully!!');
+	                	$this->fm->redirect('service.php');
+	                }else{
+	                	$this->fm->setMsg('msg_notiffy','Something WentWrong!!');
+	                	$this->fm->redirect('service.php');
+	                }
+				}
+		    }else{
+		    	$this->fm->setMsg('errors',$errors);
+		    	$this->fm->redirect('edit_service.php?id='. $id );
+		    }
 
 
-	}
+		}
 
 
-	public function serviceByCategory($categoryId){
-		$categoryId=$this->fm->validation($categoryId);
-	    $categoryId=mysqli_real_escape_string($this->db->link,$categoryId);
+		public function serviceByCategory($categoryId){
+			$categoryId=$this->fm->validation($categoryId);
+		    $categoryId=mysqli_real_escape_string($this->db->link,$categoryId);
 
-		$query="SELECT
-       				services.id as service_id,
-					services.image as image
-					FROM services
-					WHERE services.category_id = '$categoryId'
-					ORDER BY RAND() LIMIT 4";
-		$result=$this->db->select($query);
-		return $result;
-	}
+			$query="SELECT
+	       				services.id as service_id,
+						services.image as image
+						FROM services
+						WHERE services.category_id = '$categoryId'
+						ORDER BY RAND() LIMIT 4";
+			$result=$this->db->select($query);
+			return $result;
+		}
 
 
 

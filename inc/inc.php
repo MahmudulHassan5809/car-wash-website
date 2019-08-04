@@ -17,5 +17,6 @@ Session::init();
 	$service = new Service();
 	$category = new Category();
 	$request = new Request();
+	$paginate = new Paginate();
 
 ?>
