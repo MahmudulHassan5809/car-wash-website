@@ -145,11 +145,17 @@
 
 		public function getAllService(){
 			$query="SELECT services.*,
+					services.id as service_id,
+					services.phone as service_phone,
 					categories.name as cat_name,
-					categories.id as cat_id
+					categories.id as cat_id,
+					users.full_name as provider_name,
+					users.id as provider_id
 					FROM services
 					INNER JOIN categories
 					on services.category_id = categories.id
+					INNER JOIN users
+					on services.user_id = users.id
 					order by services.id desc";
 	   		$result=$this->db->select($query);
 	   		return $result;
@@ -176,12 +182,17 @@
 	   		return $result;
 		}
 
-		public function getAllServiceByProvider(){
-			if (isset($_COOKIE['user'])) {
-				$data = unserialize($_COOKIE['user']);
-				$id = $data['id'];
+		public function getAllServiceByProvider($id = null){
+			if ($id == null) {
+				if (isset($_COOKIE['user'])) {
+					$data = unserialize($_COOKIE['user']);
+					$id = $data['id'];
+				}
+				$user_id = (Session::get('userId') !== false) ? Session::get('userId') : $id;
+			}else{
+				$user_id=$this->fm->validation($id);
+       			$user_id=mysqli_real_escape_string($this->db->link,$user_id);
 			}
-			$user_id = (Session::get('userId') !== false) ? Session::get('userId') : $id;
 
 			$query="SELECT services.*,
 					services.id as service_id,
@@ -192,6 +203,19 @@
 					on services.category_id = categories.id
 					WHERE services.user_id = '$user_id'
 					order by services.id desc";
+	   		$result=$this->db->select($query);
+	   		return $result;
+		}
+
+
+		public function allServiceProvider(){
+			$query="SELECT users.*,
+					users.id as user_id,
+					user_categories.name as user_type
+					FROM users
+					INNER JOIN user_categories
+					on users.user_type = user_categories.id
+					order by users.id desc";
 	   		$result=$this->db->select($query);
 	   		return $result;
 		}

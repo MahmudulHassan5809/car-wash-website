@@ -26,6 +26,8 @@
 	                        <th class="th-sm">No</th>
 	                        <th class="th-sm">Name</th>
 	                        <th class="th-sm">Service Category</th>
+	                        <th class="th-sm">Service Phone</th>
+	                        <th class="th-sm">Provider Name</th>
 	                        <th class="th-sm">Price</th>
 	                        <th class="th-sm">Description</th>
 	                        <th class="th-sm">Image</th>
@@ -47,8 +49,10 @@
 					    	<td><?php echo($i) ?></td>
 					    	<td><?php echo($value['name']); ?></td>
 					    	<td><?php echo($value['cat_name']); ?></td>
+					    	<td><?php echo($value['service_phone']); ?></td>
+					    	<td><?php echo($value['provider_name']); ?></td>
 					    	<td><?php echo($value['price']); ?></td>
-					    	<td><?php echo htmlspecialchars_decode($fm->textShorten($value['description'],100)); ?></td>
+					    	<td><?php echo htmlspecialchars_decode($fm->textShorten($value['description'],50)); ?></td>
 					    	<td>
 					    		<img
 					    		src="upload/<?php echo($value['image']); ?>"

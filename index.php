@@ -64,8 +64,10 @@
 									</div>
 
 								</div>
+								<br>
 								<!-- Card Light -->
 							</div>
+
 						<?php } } ?>
 					</div>
 

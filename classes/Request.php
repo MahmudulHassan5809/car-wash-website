@@ -4,9 +4,10 @@
 	$filepath=realpath(dirname(__FILE__));
 	include_once ($filepath.'/../lib/Database.php');
 	include_once ($filepath.'/../helpers/Format.php') ;
+	require ($filepath.'/../vendor/autoload.php') ;
 
 	//Load Composer's autoloader
-	require 'vendor/autoload.php';
+	//require 'vendor/autoload.php';
 ?>
 
 
@@ -84,13 +85,17 @@ class Request
 	}
 
 
-	public function getAllRequestForUser(){
-
-		if (isset($_COOKIE['user'])) {
+	public function getAllRequestForUser($id = null){
+		if($id == null){
+			if (isset($_COOKIE['user'])) {
 				$data = unserialize($_COOKIE['user']);
 				$id = $data['id'];
 			}
-		$user_id = (Session::get('userId') !== false) ? Session::get('userId') : $id;
+			$user_id = (Session::get('userId') !== false) ? Session::get('userId') : $id;
+		}else{
+			$user_id=$this->fm->validation($id);
+       		$user_id=mysqli_real_escape_string($this->db->link,$user_id);
+		}
 
 		$query="SELECT requests.id as request_id,
 				requests.date as request_date,
