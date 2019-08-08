@@ -24,8 +24,12 @@
         	<i class="fas fa-bars mr-3"></i>Service
         </a>
 
+        <a href="all_admin.php" class="list-group-item list-group-item-action waves-effect">
+            <i class="fas fa-user-shield mr-3"></i>All Admin
+        </a>
+
         <a href="all_user.php" class="list-group-item list-group-item-action waves-effect">
-            <i class="fas fa-th-list mr-3"></i>All User
+            <i class="fas fa-users mr-3"></i></i>All User
         </a>
 
         <a href="page.php" class="list-group-item list-group-item-action waves-effect">

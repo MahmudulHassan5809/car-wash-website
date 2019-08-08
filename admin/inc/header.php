@@ -15,6 +15,7 @@
     include '../helpers/Format.php';
 
     $fm   = new Format();
+    $ad   = new Admin();
     $service   = new Service();
     $category   = new Category();
     $Usercategory = new UserCategory();

@@ -3,7 +3,7 @@
 		<nav aria-label="Page navigation example" class="mx-auto">
 			<ul class="pagination pg-blue">
 				<?php if ($paginate->has_next()): ?>
-					<li class="page-item"><a class="page-link" href="index.php?page=<?php echo $paginate->next() ;?>">Next</a></li>
+					<li class="page-item mx-2"><a class="page-link info-color" href="index.php?page=<?php echo $paginate->next() ;?>">Next</a></li>
 				<?php endif ?>
 				<?php for($i=1 ; $i<= $paginate->page_total() ;$i++): ?>
 					<?php if ($i == $paginate->current_page): ?>
@@ -13,7 +13,7 @@
 					<?php endif ?>
 				<?php endfor ?>
 				<?php if ($paginate->has_prev()): ?>
-					<li class="page-item"><a class="page-link" href="index.php?page=<?php echo $paginate->prev() ;?>">Prev</a></li>
+					<li class="page-item mx-2"><a class="page-link danger-color" href="index.php?page=<?php echo $paginate->prev() ;?>">Prev</a></li>
 				<?php endif ?>
 			<ul class="pagination pg-blue">
 		</nav>

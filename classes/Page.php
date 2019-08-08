@@ -121,7 +121,7 @@ class Page
 					title = '$title',
 					description = '$description'
 					WHERE id='$id'";
-	  		$result=$this->db->insert($query);
+	  		$result=$this->db->update($query);
 			if($result){
 				$this->fm->setMsg('msg','Page Updated SuucessFully!');
 				$this->fm->redirect('page.php');
