@@ -28,6 +28,10 @@
             <i class="fas fa-th-list mr-3"></i>All User
         </a>
 
+        <a href="page.php" class="list-group-item list-group-item-action waves-effect">
+            <i class="fas fa-plus mr-3"></i>Page
+        </a>
+
 
 
     </div>

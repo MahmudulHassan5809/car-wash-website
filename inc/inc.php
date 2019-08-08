@@ -18,5 +18,6 @@ Session::init();
 	$category = new Category();
 	$request = new Request();
 	$paginate = new Paginate();
+	$page = new Page();
 
 ?>

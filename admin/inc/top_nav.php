@@ -34,7 +34,7 @@
               </a>
             </li>
              <li class="nav-item">
-              <a class="nav-link waves-effect" target="_blank" href="/">View Site
+              <a class="nav-link waves-effect" target="_blank" href="<?php echo(URLROOT);?>/index.php">View Site
               </a>
             </li>
         </ul>

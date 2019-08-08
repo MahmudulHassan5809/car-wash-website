@@ -9,7 +9,15 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title><?php echo $fm->title(); ?></title>
+	<?php
+		if(!isset($_GET['pageId']) or $_GET['pageId']==NULL){
+			$pageTitle = $fm->title();
+		}else{
+			$pageId = $_GET['pageId'];
+			$pageTitle = $page->pageTitle($pageId);
+		}
+	?>
+	<title><?php echo $pageTitle; ?></title>
 
 	<link rel="stylesheet" href="assets/css/font.css">
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">

@@ -22,6 +22,7 @@
                   <a class="nav-link" href="index.php">Home
                   </a>
                 </li>
+
                 <?php if (Session::get('userLogin') == true || isset($_COOKIE['user'])): ?>
                     <?php if ($user->checkNormalUser() === false): ?>
                         <li class="nav-item">
@@ -31,6 +32,18 @@
 
 
                 <?php endif ?>
+
+                <?php
+                   $result=$page->getAllPage();
+                   if($result){
+                       while($value=$result->fetch_assoc()) {
+                ?>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo URLROOT ?>/page.php?pageId=<?php echo $value['id']; ?>"><?php echo $value['title']; ?></a>
+                </li>
+
+                <?php } } ?>
 
             </ul>
 

@@ -19,4 +19,5 @@
 	$service = new Service();
 	$category = new Category();
 	$Usercategory = new UserCategory();
+	$page = new Page();
 ?>

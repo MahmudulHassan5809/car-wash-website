@@ -19,6 +19,7 @@
     $category   = new Category();
     $Usercategory = new UserCategory();
     $request = new Request();
+    $page = new Page();
 
 ?>
 

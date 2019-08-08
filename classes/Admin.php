@@ -44,6 +44,7 @@
 			}
 
 			if(count($errors) == 0){
+				$old_passwrod = $password;
 				$password=md5($password);
 				$query="SELECT * FROM admin Where email='$email' and password='$password'";
 				$result=$this->db->select($query);
@@ -56,6 +57,7 @@
 				}else{
 					$data = [
 						'email' => $email,
+						'password' => $old_passwrod,
 					];
 
 					$this->fm->setMsg('form_data',$data);
