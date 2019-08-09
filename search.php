@@ -12,30 +12,34 @@
 	use Carbon\Carbon;
 ?>
 
-<?php
-	$page = !empty($_GET['page']) ? (int)$_GET['page'] : 1 ;
-	$totat = $service->items_total_count();
-	$paginate = new Paginate($page,$totat);
 
-?>
+<!-- Passed Form Input To Service Class -->
+  <?php
+    if($_SERVER['REQUEST_METHOD']== 'POST' && isset($_POST['search'])){
+    	$searchService = $service->searchService($_POST);
+    }
+   ?>
+<!-- End of Passing input -->
+
 
 <main>
 	<div class="container">
 		<div class="mt-5 wow fadeIn">
 			<div class="row">
 				<div class="col-md-12">
-					<?php echo $fm->getMsg('msg_notify'); ?>
+
+
 					<h2 class="text-danger text-center mb-4">Serv<i class="fas fa-tools"></i>ices</h2>
 					<p class="lead text-justify text-center mb-5">
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero officia ut nemo minus aspernatur a fugit commodi, velit dolore incidunt repudiandae amet saepe quo non quos modi, ab voluptatem quasi.
 					</p>
 
 					<div class="row">
-						<?php $result = $paginate->getAllServicesForIndex();
-							if ($result) {
-								while ($value = $result->fetch_assoc()) {
+						<?php
+						if (isset($searchService)) {
+							while($value = $searchService->fetch_assoc()) { ?>
 
-						?>
+
 							<div class="col-md-6">
 								<!-- Card Light -->
 								<div class="card" style="height: 600px;">
@@ -82,9 +86,7 @@
 					</div>
 
 
-					<?php  if ($paginate->page_total() > 0) : ?>
-						<?php include 'inc/paginate.php'; ?>
-	                <?php endif ?>
+
 
 
 	              </div>

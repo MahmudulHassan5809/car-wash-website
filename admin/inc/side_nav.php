@@ -33,7 +33,7 @@
         </a>
 
         <a href="page.php" class="list-group-item list-group-item-action waves-effect">
-            <i class="fas fa-plus mr-3"></i>Page
+            <i class="fas fa-pager mr-3"></i>Page
         </a>
 
 

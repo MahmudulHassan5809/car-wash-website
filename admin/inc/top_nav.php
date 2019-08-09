@@ -20,20 +20,11 @@
           <!-- Left -->
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-	            <a class="nav-link waves-effect" href="">Home
+	            <a class="nav-link waves-effect" href="index.php">Home
 	            </a>
             </li>
+
             <li class="nav-item">
-              <a class="nav-link waves-effect" href="">
-                Servie
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link waves-effect" href="">
-                Service
-              </a>
-            </li>
-             <li class="nav-item">
               <a class="nav-link waves-effect" target="_blank" href="<?php echo(URLROOT);?>/index.php">View Site
               </a>
             </li>

@@ -432,6 +432,15 @@
 		}
 
 
+		public function searchService($data){
+			$q=$this->fm->validation($data['q']);
+       		$q=mysqli_real_escape_string($this->db->link,$q);
+
+       		$query = "SELECT * FROM services WHERE name like '%".$q."%' OR description like '%".$q."%'";
+       		$result = $this->db->select($query);
+       		return $result;
+		}
+
 
 
 
