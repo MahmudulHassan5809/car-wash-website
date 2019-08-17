@@ -42,8 +42,9 @@
 							$i = 0;
 							$result=$service->getAllServiceForAdmin();
 					        if($result){
-					        	$i++;
+
 					        	while($value=$result->fetch_assoc()) {
+					        		$i++;
 
 					    ?>
 					    	<td><?php echo($i) ?></td>

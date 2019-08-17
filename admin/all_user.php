@@ -44,6 +44,9 @@
 							<?php if ($value['user_type'] === 'Service Provider'): ?>
 								<td>
 									<a href="provider_service.php?id=<?php echo $value['user_id'] ;?>&user_name=<?php echo $value['full_name'] ;?>">View All Service</a>
+									||
+
+									<a href="user_request.php?id=<?php echo $value['user_id'] ;?>&user_name=<?php echo $value['full_name'] ;?>">View All Request</a>
 								</td>
 							<?php else: ?>
 								<td>

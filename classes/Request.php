@@ -153,6 +153,14 @@ class Request
 		    }
 		}
 	}
+
+
+	public function totalRequests(){
+			$query = "SELECT count(1) FROM requests";
+			$result = $this->db->select($query);
+			$result = mysqli_fetch_array($result);
+			return $result[0];
+		}
 }
 
 ?>

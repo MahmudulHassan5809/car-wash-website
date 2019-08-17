@@ -26,7 +26,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 mx-auto pt-5">
-				<h2 class="text-center">Add Category</h2>
+				<h2 class="text-center">Add Admin</h2>
 				<?php
 					echo $fm->getMsg('msg_notify');
 					//getting errors on form

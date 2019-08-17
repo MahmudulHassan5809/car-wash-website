@@ -442,6 +442,27 @@
 		}
 
 
+		public function totalServiceProvider(){
+			$query = "SELECT count(1) FROM users WHERE user_type=1";
+			$result = $this->db->select($query);
+			$result = mysqli_fetch_array($result);
+			return $result[0];
+		}
+
+		public function totalServices(){
+			$query = "SELECT count(1) FROM services";
+			$result = $this->db->select($query);
+			$result = mysqli_fetch_array($result);
+			return $result[0];
+		}
+
+
+		public function totalUsers(){
+			$query = "SELECT count(1) FROM users";
+			$result = $this->db->select($query);
+			$result = mysqli_fetch_array($result);
+			return $result[0];
+		}
 
 
 	}// class End

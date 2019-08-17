@@ -7,6 +7,7 @@
 
 
 
+
     spl_autoload_register(function($class){
       include_once "../classes/".$class.".php";
 
@@ -69,6 +70,8 @@
             position:absolute;
         }
     </style>
+
+    <script src="js/chart.js"></script>
 </head>
 
 <body class="grey lighten-3">

@@ -3,6 +3,11 @@ include 'lib/Session.php' ;
 ob_start();
 Session::init();
 
+
+
+
+
+
 //error_reporting(0);
 
 	include 'lib/Database.php' ;

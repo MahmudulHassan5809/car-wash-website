@@ -67,3 +67,7 @@
 		</div>
 	</div>
 </main>
+
+<!-- footer -->
+    <?php include 'inc/footer.php'; ?>
+<!-- End footer -->
