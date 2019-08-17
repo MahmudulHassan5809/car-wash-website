@@ -1,4 +1,5 @@
 <?php
+	require 'config/config.php';
 	require 'vendor/autoload.php';
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\Exception;
@@ -40,12 +41,49 @@
 	}
 
 
-	$content="From: $name \nEmail: $email \nMessage: $message";
-	$recipient = "mahmudul15-5809@diu.edu.bd";
-	$mailheader = "From: $email \r\n";
-	mail($recipient, $subject, $content, $mailheader) or die("Error!");
-	print json_encode(array('message' => 'Email successfully sent!', 'code' => 1));
-	exit();
+    try{
+        $mail = new PHPMailer(true);
+        //$mail->SMTPDebug = 2;
+        $mail->SMTPSecure = false;
+        $mail->SMTPAutoTLS = false;
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = USERNAME;
+        $mail->Password = PASSWORD;
+        $mail->From = $email;
+        $mail->FromName = $name;
+        $mail->SMTPSecure = 'tls';;
+        $mail->Port = 587;
+        $mail->SMTPOptions = array(
+        'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
+
+
+
+        $mail->addAddress(USERNAME, '');
+
+        $content  =" <b> NAME :</b>  $name "."<br>";
+        $content .=" <b> NAME :</b>  $subject "."<br>";
+	    $content .=" <b> EMAIL :</b> $email "."<br>";
+	    $content .=" <b> MOBILE :</b> $phone "."<br>";
+	    $content .=" <b> MESSAGE :</b> $message "."<br>";
+
+		$mail->MsgHTML($content);
+
+        $mail->Send();
+        print json_encode(array('message' => 'Email successfully sent!', 'code' => 1));
+        exit();
+    } catch(Exception $e){
+        // Something went bad
+        die("Error!");
+    }
+
+
 
 
 ?>

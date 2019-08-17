@@ -20,4 +20,5 @@
 	$category = new Category();
 	$Usercategory = new UserCategory();
 	$page = new Page();
+	$settings = new Settings();
 ?>

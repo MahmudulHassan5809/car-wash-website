@@ -36,6 +36,10 @@
             <i class="fas fa-pager mr-3"></i>Page
         </a>
 
+        <a href="settings.php" class="list-group-item list-group-item-action waves-effect">
+            <i class="fas fa-cog mr-3"></i>Settings
+        </a>
+
 
 
     </div>

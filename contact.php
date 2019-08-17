@@ -107,36 +107,53 @@
 							<div class="card-body contact text-center h-100 dark-text info-color-dark">
 
 								<h3 class="my-4 pb-2">Contact information</h3>
+								<?php
+									$result = $settings->getAllSettings();
+									if($result){
+										while($value = $result->fetch_assoc()){
+
+								?>
 								<ul class="text-lg-left list-unstyled ml-4">
 									<li>
-										<p><i class="fas fa-map-marker-alt pr-2"></i>New York, 94126, USA</p>
+										<p><i class="fas fa-map-marker-alt pr-2"></i><?php echo $value['address']; ?></p>
 									</li>
 									<li>
-										<p><i class="fas fa-phone pr-2"></i>+ 01 234 567 89</p>
+										<p><i class="fas fa-phone pr-2"></i><?php echo $value['phone']; ?></p>
 									</li>
 									<li>
-										<p><i class="fas fa-envelope pr-2"></i>contact@example.com</p>
-									</li>
-								</ul>
-								<hr class="hr-light my-4">
-								<ul class="list-inline text-center list-unstyled">
-									<li class="list-inline-item">
-										<a class="p-2 fa-lg tw-ic">
-											<i class="fab fa-twitter"></i>
-										</a>
-									</li>
-									<li class="list-inline-item">
-										<a class="p-2 fa-lg li-ic">
-											<i class="fab fa-linkedin-in"> </i>
-										</a>
-									</li>
-									<li class="list-inline-item">
-										<a class="p-2 fa-lg ins-ic">
-											<i class="fab fa-instagram"> </i>
-										</a>
+										<p><i class="fas fa-envelope pr-2"></i><?php echo $value['email']; ?></p>
 									</li>
 								</ul>
 
+								<hr class="hr-light my-4">
+
+								<ul class="list-inline text-center list-unstyled">
+									<?php if (strlen($value['facebook']) > 0): ?>
+										<li class="list-inline-item">
+											<a class="text-dark" href="<?php echo $value['facebook'] ?>" class="p-2 fa-lg tw-ic">
+												<i class="fab fa-facebook"></i>
+											</a>
+										</li>
+									<?php endif ?>
+
+									<?php if (strlen($value['linkedin']) > 0): ?>
+										<li class="list-inline-item">
+											<a class="text-dark" href="<?php echo $value['linkedin'] ?>" class="p-2 fa-lg tw-ic">
+												<i class="fab fa-linkedin-in"></i>
+											</a>
+										</li>
+									<?php endif ?>
+
+									<?php if (strlen($value['instagram']) > 0): ?>
+										<li class="list-inline-item">
+											<a class="text-dark" href="<?php echo $value['instagram'] ?>" class="p-2 fa-lg tw-ic">
+												<i class="fab fa-instagram"></i>
+											</a>
+										</li>
+									<?php endif ?>
+								</ul>
+
+								<?php } } ?>
 							</div>
 
 						</div>
