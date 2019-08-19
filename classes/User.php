@@ -178,12 +178,20 @@ class User
        }
 	}
 
-	public function checkUserByEmail($email){
-		$mailcheck="SELECT users.email FROM users Where email='$email'";
-	    $mailres=$this->db->select($mailcheck);
-	    if ($mailres) {
-	       return true;
-	    }
+	public function checkUserByEmail($email,$currentUserID=null){
+		if($currentUserID == null){
+				$mailcheck="SELECT users.email FROM users Where email='$email'";
+			    $mailres=$this->db->select($mailcheck);
+			    if ($mailres) {
+			       return true;
+			    }
+			}else{
+				$mailcheck="SELECT users.email FROM users Where email='$email' AND id!='$currentUserID'";
+			    $mailres=$this->db->select($mailcheck);
+			    if ($mailres) {
+			       return true;
+			    }
+			}
 	}
 
 	public function checkUserActivation($email){
@@ -331,6 +339,92 @@ class User
 		}
 		return false;
 	}
+    
+    public function getCurrentUserData(){
+        if (isset($_COOKIE['user'])) {
+                $data = unserialize($_COOKIE['user']);
+                $id = $data['id'];
+            }
+        $currentUserID = (Session::get('userId') !== false) ? Session::get('userId') : $id;
+        
+        $query = "SELECT full_name,email,phone FROM users WHERE id='$currentUserID'";
+        $result = $this->db->select($query);
+        return $result;
+    }
+    
+    
+    public function editUser($data){
+            if (isset($_COOKIE['user'])) {
+                $data = unserialize($_COOKIE['user']);
+                $id = $data['id'];
+            }
+            $currentUserID = (Session::get('userId') !== false) ? Session::get('userId') : $id;
+			
+            $errors = array();
+
+			$full_name=$this->fm->validation($data['full_name']);
+       		$full_name=mysqli_real_escape_string($this->db->link,$full_name);
+
+       		$email=$this->fm->validation($data['email']);
+       		$email=mysqli_real_escape_string($this->db->link,$email);
+
+       		$phone=$this->fm->validation($data['phone']);
+       		$phone=mysqli_real_escape_string($this->db->link,$phone);
+
+       		//Email Errors
+       		if (empty($email)) {
+		  		$errors['email_error'] = "Email Field Must Be Filled";
+		  	}else if (filter_var($email, FILTER_VALIDATE_EMAIL)==false) {
+		  		$errors['email_error'] = "Invalid Email";
+		  	}else if ($this->checkUserByEmail($email,$currentUserID)) {
+	       		$errors['email_error'] = 'Email Already Exits';
+	       	}
+
+	       	//Phone Error
+			if (empty($phone)) {
+			  	$errors['phone_error'] = "Phone Field Must Be Filled";
+			}
+
+			//Phone Error
+			if (empty($full_name)) {
+			  	$errors['name_error'] = "Name Field Must Be Filled";
+			}
+
+			if(count($errors) == 0){
+				$query = "UPDATE users
+					SET
+					full_name = '$full_name',
+					email = '$email',
+					phone = '$phone'
+					WHERE id = '$currentUserID'
+					";
+				$result = $this->db->update($query);
+				if($result){
+					$this->fm->setMsg('msg','Profile Updated SuccessFully');
+					$this->fm->redirect('profile.php');
+				}else{
+					$this->fm->setMsg('msg_notify','Something Went Wrong..');
+					$data = [
+						'full_name' => $full_name,
+						'email' => $email,
+						'phone' => $phone,
+					];
+
+					$this->fm->setMsg('form_data',$data);
+				}
+
+			}else{
+				$data = [
+					'full_name' => $full_name,
+					'email' => $email,
+					'phone' => $phone,
+				];
+
+				$this->fm->setMsg('form_data',$data);
+       			$this->fm->setMsg('errors',$errors);
+			}
+
+		}
 
 	public function logout(){
 		if(isset($_COOKIE['user'])){

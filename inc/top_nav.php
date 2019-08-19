@@ -29,7 +29,9 @@
                           <a class="nav-link" href="<?php echo URLROOT ?>/add_service.php">Add Service</a>
                         </li>
                     <?php endif ?>
-
+                         <li class="nav-item">
+                          <a class="nav-link" href="<?php echo URLROOT ?>/profile.php">Profile</a>
+                        </li>   
 
                 <?php endif ?>
 
