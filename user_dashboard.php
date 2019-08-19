@@ -14,6 +14,9 @@
 			<div class="col-md-10 mx-auto">
 				<h2 class="text-center">Wellcome <?php echo Session::get('userName'); ?></h2>
 				<h3 class="text-center">Your Request</h3>
+
+				<?php echo $fm->getMsg('msg_notify'); ?>
+
 				<hr class="hr-dark">
 					<table class="table table-hover table-inverse">
 						<thead>
@@ -22,6 +25,7 @@
 								<th>Service Name</th>
 								<th>Provider Phone</th>
 								<th>Request Date</th>
+								<th>Cancel Request</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -37,6 +41,11 @@
 								<td><?php echo $value['service_name']; ?></td>
 								<td><?php echo $value['service_phone']; ?></td>
 								<td><?php echo $value['request_date']; ?></td></td>
+								<td>
+									<a onclick="return confirm('Are You Sure?');" class="btn btn-danger" href="cancel_request.php?reqId=<?php echo $value['request_id']; ?>&userId=<?php echo $value['user_id']; ?>">
+										<i class="fas fa-ban fa-lg"></i>
+									</a>
+								</td>
 							</tr>
 							<?php } } ?>
 						</tbody>

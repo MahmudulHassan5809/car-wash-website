@@ -160,7 +160,37 @@ class Request
 			$result = $this->db->select($query);
 			$result = mysqli_fetch_array($result);
 			return $result[0];
+	}
+
+	public function cancelRequest($reqId,$userId){
+		$reqId=$this->fm->validation($reqId);
+       	$reqId=mysqli_real_escape_string($this->db->link,$reqId);
+
+       	$userId=$this->fm->validation($userId);
+       	$userId=mysqli_real_escape_string($this->db->link,$userId);
+
+       	if (isset($_COOKIE['user'])) {
+			$data = unserialize($_COOKIE['user']);
+			$id = $data['id'];
 		}
+		$currentUserID = (Session::get('userId') !== false) ? Session::get('userId') : $id;
+
+		if($currentUserID === $userId){
+			$query = "DELETE FROM requests WHERE id='$reqId'";
+			$result = $this->db->delete($query);
+			if($result){
+				$this->fm->setMsg('msg_notify','Your Request Has Been Canceled','success');
+				$this->fm->redirect('user_dashboard.php');
+			}else{
+				$this->fm->setMsg('msg_notify','Sorry Something Went Wrong','warning');
+				$this->fm->redirect('user_dashboard.php');
+			}
+		}else{
+			$this->fm->setMsg('msg_notify','Sorry This Request Does Not Belong To You....','warning');
+			$this->fm->redirect('user_dashboard.php');
+		}
+
+	}
 }
 
 ?>
