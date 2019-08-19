@@ -26,16 +26,10 @@
 	<div class="container mt-5">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="card bg-light">
+				<div class="card bg-warning">
 					<article class="card-body mx-auto" style="width: 600px;">
+						<h2 class="text-center lead">Car Wash & Reapir Service</h2>
 						<h4 class="card-title mt-3 text-center">Create Account</h4>
-						<p>
-							<a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Login via Twitter</a>
-							<a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook"></i>   Login via facebook</a>
-						</p>
-						<p class="divider-text">
-					        <span class="bg-light">OR</span>
-					    </p>
 
 						<?php echo $fm->getMsg('msg'); ?>
 						<?php

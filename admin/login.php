@@ -85,6 +85,6 @@
 
 
 <!-- Footer -->
-	<?php include 'inc/footer.php'; ?>
+	<?php include 'inc/login_footer.php'; ?>
 <!-- Footer -->
 

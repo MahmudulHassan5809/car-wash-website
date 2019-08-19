@@ -1,5 +1,5 @@
     <!-- Footer -->
-    <footer class="page-footer font-small bg-dark">
+    <footer class="page-footer font-small bg-dark mt-5">
 
       <!-- Copyright -->
       <div class="footer-copyright text-center text-white form-control-lg">© <?php echo date("Y"); ?> Copyright:
