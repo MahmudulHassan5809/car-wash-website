@@ -1,8 +1,12 @@
 <?php
-	require 'config/config.php';
+
 	require 'vendor/autoload.php';
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\Exception;
+
+
+
+	require 'inc/inc.php';
 ?>
 
 
@@ -72,12 +76,18 @@
 	    $content .=" <b> EMAIL :</b> $email "."<br>";
 	    $content .=" <b> MOBILE :</b> $phone "."<br>";
 	    $content .=" <b> MESSAGE :</b> $message "."<br>";
+		$result = $cm->sendMessage($_POST);
+		if($result){
+			$mail->MsgHTML($content);
 
-		$mail->MsgHTML($content);
+	        $mail->Send();
 
-        $mail->Send();
-        print json_encode(array('message' => 'Email successfully sent!', 'code' => 1));
-        exit();
+	        print json_encode(array('message' => 'Email successfully sent!', 'code' => 1));
+	        exit();
+		}else{
+			print json_encode(array('message' => 'Sorry Something Went Wrong', 'code' => 1));
+	        exit();
+		}
     } catch(Exception $e){
         // Something went bad
         die("Error!");

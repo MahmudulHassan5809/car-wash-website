@@ -25,5 +25,6 @@ Session::init();
 	$paginate = new Paginate();
 	$page = new Page();
 	$settings = new Settings();
+	$cm = new ContactMessage();
 
 ?>

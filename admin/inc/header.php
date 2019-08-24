@@ -23,6 +23,7 @@
     $request = new Request();
     $page = new Page();
     $settings = new Settings();
+    $cm = new ContactMessage();
 
 ?>
 
