@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 17, 2019 at 04:01 PM
+-- Generation Time: Aug 25, 2019 at 02:39 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -67,6 +67,30 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id`, `name`, `email`, `phone`, `subject`, `message`, `created_at`) VALUES
+(1, 'Test Name', 'mahmudul.hassan240@gmail.com', '01630811624', 'Test Subject', 'Test Message.', '2019-08-24 17:25:54'),
+(3, 'Jhon Doe', 'jhon@gmail.com', '01630811624', 'Test', 'Test', '2019-08-24 17:25:54');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pages`
 --
 
@@ -103,9 +127,7 @@ CREATE TABLE `requests` (
 
 INSERT INTO `requests` (`id`, `provider_id`, `service_id`, `user_id`, `date`) VALUES
 (2, 14, 7, 16, '2019-08-02 18:16:56'),
-(3, 14, 6, 16, '2019-08-02 18:33:45'),
-(4, 15, 8, 16, '2019-08-04 13:21:04'),
-(5, 15, 10, 14, '2019-08-08 19:29:13');
+(3, 14, 6, 16, '2019-08-02 18:33:45');
 
 -- --------------------------------------------------------
 
@@ -123,6 +145,7 @@ CREATE TABLE `services` (
   `description` text NOT NULL,
   `price` varchar(20) NOT NULL,
   `image` varchar(255) NOT NULL,
+  `is_active` tinyint(4) NOT NULL DEFAULT '1',
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -130,12 +153,10 @@ CREATE TABLE `services` (
 -- Dumping data for table `services`
 --
 
-INSERT INTO `services` (`id`, `name`, `location`, `phone`, `category_id`, `user_id`, `description`, `price`, `image`, `date`) VALUES
-(6, 'Washing Car With Resonable Cost', 'Badda', '01635689521', 5, 14, '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\n tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim \r\nveniam,&lt;br&gt;quis nostrud exercitation ullamco laboris nisi ut aliquip ex \r\nea commodo consequat. Duis aute irure dolor in reprehenderit in \r\nvoluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur \r\nsint occaecat cupidatat non proident, sunt in culpa qui officia deserunt\r\n mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\n tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim \r\nveniam,&lt;br&gt;quis nostrud exercitation ullamco laboris nisi ut aliquip ex \r\nea commodo consequat. Duis aute irure dolor in reprehenderit in \r\nvoluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur \r\nsint occaecat cupidatat non proident, sunt in culpa qui officia deserunt\r\n mollit anim id est laborum.&lt;/p&gt;', '2000', '6e0d79a674.jpg', '2019-07-30 12:16:08'),
-(7, 'Car Engine Repair', 'Gulshan', '01632659891', 6, 14, '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo unde molestiae earum labore, repellendus ad, ullam ipsam a tempore quibusdam eaque. Voluptatum praesentium veritatis quisquam quia corporis magnam libero voluptates.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo unde molestiae earum labore, repellendus ad, ullam ipsam a tempore quibusdam eaque. Voluptatum praesentium veritatis quisquam quia corporis magnam libero voluptates.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo unde molestiae earum labore, repellendus ad, ullam ipsam a tempore quibusdam eaque. Voluptatum praesentium veritatis quisquam quia corporis magnam libero voluptates.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo unde molestiae earum labore, repellendus ad, ullam ipsam a tempore quibusdam eaque. Voluptatum praesentium veritatis quisquam quia corporis magnam libero voluptates.&lt;br&gt;&lt;/p&gt;', '10000', '271d3fdc29.jpg', '2019-07-30 13:15:31'),
-(8, 'Car Tire Repair', 'Badda Dahaka', '012635982', 6, 15, '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi placeat, consequuntur debitis! Aspernatur quis facere odit adipisci nisi aliquid sint aperiam, suscipit porro, dolore praesentium excepturi ut labore repellendus debitis.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi placeat, consequuntur debitis! Aspernatur quis facere odit adipisci nisi aliquid sint aperiam, suscipit porro, dolore praesentium excepturi ut labore repellendus debitis.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi placeat, consequuntur debitis! Aspernatur quis facere odit adipisci nisi aliquid sint aperiam, suscipit porro, dolore praesentium excepturi ut labore repellendus debitis.&lt;br&gt;&lt;/p&gt;', '1500', '5f4212ac4f.jpg', '2019-08-04 13:19:35'),
-(9, 'Wash &amp; Color', 'Banani', '0126359842', 5, 15, '&lt;p&gt;It is a long established fact that a reader will be distracted by the \r\nreadable content of a page when looking at its layout. The point of \r\nusing Lorem Ipsum is that it has a more-or-less normal distribution of \r\nletters, as opposed to using \'Content here, content here\', making it \r\nlook like readable English. Many desktop publishing packages and web \r\npage editors now use Lorem Ipsum as their default model text, and a \r\nsearch for \'lorem ipsum\' will uncover many web sites still in their \r\ninfancy.&lt;/p&gt;', '5000', '64413304fb.jpg', '2019-08-04 18:01:58'),
-(10, 'Clean Car Glass', 'Baridhara', '0163256463', 5, 15, '&lt;p&gt;It is a long established fact that a reader will be distracted by the \r\nreadable content of a page when looking at its layout. The point of \r\nusing Lorem Ipsum is that it has a more-or-less normal distribution of \r\nletters, as opposed to using \'Content here, content here\', making it \r\nlook like readable English. Many desktop publishing packages and web \r\npage editors now use Lorem Ipsum as their default model text, and a \r\nsearch for \'lorem ipsum\' will uncover many web sites still in their \r\ninfancy.&lt;/p&gt;', '500', 'f7ccb79049.jpg', '2019-08-04 18:06:31');
+INSERT INTO `services` (`id`, `name`, `location`, `phone`, `category_id`, `user_id`, `description`, `price`, `image`, `is_active`, `date`) VALUES
+(6, 'Washing Car With Resonable Cost', 'Badda', '01635689521', 5, 14, '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\n tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim \r\nveniam,&lt;br&gt;quis nostrud exercitation ullamco laboris nisi ut aliquip ex \r\nea commodo consequat. Duis aute irure dolor in reprehenderit in \r\nvoluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur \r\nsint occaecat cupidatat non proident, sunt in culpa qui officia deserunt\r\n mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\n tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim \r\nveniam,&lt;br&gt;quis nostrud exercitation ullamco laboris nisi ut aliquip ex \r\nea commodo consequat. Duis aute irure dolor in reprehenderit in \r\nvoluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur \r\nsint occaecat cupidatat non proident, sunt in culpa qui officia deserunt\r\n mollit anim id est laborum.&lt;/p&gt;', '2000', '6e0d79a674.jpg', 1, '2019-07-30 12:16:08'),
+(7, 'Car Engine Repair', 'Gulshan', '01632659891', 6, 14, '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo unde molestiae earum labore, repellendus ad, ullam ipsam a tempore quibusdam eaque. Voluptatum praesentium veritatis quisquam quia corporis magnam libero voluptates.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo unde molestiae earum labore, repellendus ad, ullam ipsam a tempore quibusdam eaque. Voluptatum praesentium veritatis quisquam quia corporis magnam libero voluptates.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo unde molestiae earum labore, repellendus ad, ullam ipsam a tempore quibusdam eaque. Voluptatum praesentium veritatis quisquam quia corporis magnam libero voluptates.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo unde molestiae earum labore, repellendus ad, ullam ipsam a tempore quibusdam eaque. Voluptatum praesentium veritatis quisquam quia corporis magnam libero voluptates.&lt;br&gt;&lt;/p&gt;', '10000', '271d3fdc29.jpg', 1, '2019-07-30 13:15:31'),
+(11, 'Clean Car Glass', 'Badda', '01630811624', 5, 15, '&lt;p&gt;There are many variations of passages of Lorem Ipsum available, but the \r\nmajority have suffered alteration in some form, by injected humour, or \r\nrandomised words which don\'t look even slightly believable. If you are \r\ngoing to use a passage of Lorem Ipsum, you need to be sure there isn\'t \r\nanything embarrassing hidden in the middle of text. All the Lorem Ipsum \r\ngenerators on the Internet tend to repeat predefined chunks as \r\nnecessary, making this the first true generator on the Internet. It uses\r\n a dictionary of over 200 Latin words, combined with a handful of model \r\nsentence structures, to generate Lorem Ipsum which looks reasonable. The\r\n generated Lorem Ipsum is therefore always free from repetition, \r\ninjected humour, or non-characteristic words etc.&lt;/p&gt;&lt;p&gt;There are many variations of passages of Lorem Ipsum available, but the \r\nmajority have suffered alteration in some form, by injected humour, or \r\nrandomised words which don\'t look even slightly believable. If you are \r\ngoing to use a passage of Lorem Ipsum, you need to be sure there isn\'t \r\nanything embarrassing hidden in the middle of text. All the Lorem Ipsum \r\ngenerators on the Internet tend to repeat predefined chunks as \r\nnecessary, making this the first true generator on the Internet. It uses\r\n a dictionary of over 200 Latin words, combined with a handful of model \r\nsentence structures, to generate Lorem Ipsum which looks reasonable. The\r\n generated Lorem Ipsum is therefore always free from repetition, \r\ninjected humour, or non-characteristic words etc.&lt;/p&gt;', '2000', 'b0ad2fef5e.jpg', 1, '2019-08-25 12:16:05');
 
 -- --------------------------------------------------------
 
@@ -224,6 +245,12 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `pages`
 --
 ALTER TABLE `pages`
@@ -282,6 +309,12 @@ ALTER TABLE `categories`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
@@ -291,13 +324,13 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT for table `requests`
 --
 ALTER TABLE `requests`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `settings`
