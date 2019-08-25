@@ -31,7 +31,7 @@
 	                        <th class="th-sm">Price</th>
 	                        <th class="th-sm">Description</th>
 	                        <th class="th-sm">Image</th>
-	                        <th class="th-sm">Edit</th>
+	                        <th class="th-sm">Action</th>
 	                        <th class="th-sm">Delete</th>
 	                    </tr>
 					</thead>
@@ -61,12 +61,18 @@
 					    		class="img-fluid" style="width: 150px;">
 					    	</td>
 					    	<td>
-					    		<a href="edit_service.php?id=<?php echo $value['id'] ;?>" class="btn btn-success">
-					    			<i class="fas fa-edit"></i>
-					    		</a>
+					    		<?php if ($value['is_active'] == 1): ?>
+					    			<a href="edit_action.php?id=<?php echo $value['id'] ;?>" class="btn btn-xs btn-danger">
+					    				Inactive
+					    			</a>
+					    		<?php else: ?>
+					    			<a href="edit_action.php?id=<?php echo $value['id'] ;?>" class="btn btn-xs btn-success">
+					    				Active
+					    			</a>
+					    		<?php endif ?>
 					    	</td>
 					    	<td>
-					    		<a onclick="return confirm('Are You Sure');" href="delete_service.php?id=<?php echo $value['id'] ;?>" class="btn btn-danger">
+					    		<a onclick="return confirm('Are You Sure');" href="delete_service.php?id=<?php echo $value['id'] ;?>&action=admin" class="btn btn-danger">
 					    			<i class="fas fa-trash"></i>
 					    		</a>
 					    	</td>

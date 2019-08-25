@@ -25,6 +25,9 @@
 			<div class="row">
 				<div class="col-md-12">
 					<?php echo $fm->getMsg('msg_notify'); ?>
+
+					<?php echo $fm->getMsg('msg'); ?>
+
 					<h2 class="text-danger text-center mb-4">Serv<i class="fas fa-tools"></i>ices</h2>
 					<p class="lead text-justify text-center mb-5">
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero officia ut nemo minus aspernatur a fugit commodi, velit dolore incidunt repudiandae amet saepe quo non quos modi, ab voluptatem quasi.

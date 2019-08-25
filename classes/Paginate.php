@@ -59,10 +59,12 @@ class Paginate
     }
 
     public function getAllServicesForIndex(){
-    	$query  = "SELECT * FROM services ";
-    	$query .= "ORDER BY date desc ";
-    	$query .= "LIMIT {$this->items_per_page} ";
+    	$query  = "SELECT * FROM services WHERE is_active=1 ORDER BY date desc ";
+    	// $query .= "ORDER BY date desc ";
+    	// $query .= "WHERE is_active=1 ";
+        $query .= "LIMIT {$this->items_per_page} ";
        	$query .= "OFFSET {$this->offset()} ";
+
 
        	$result = $this->db->select($query);
        	return $result;

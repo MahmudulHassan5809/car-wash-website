@@ -240,16 +240,23 @@
 		}
 
 
-		public function deleteService($id){
+		public function deleteService($id , $action){
 			$id=$this->fm->validation($id);
 	       	$id=mysqli_real_escape_string($this->db->link,$id);
+
+	       	$action=$this->fm->validation($action);
+	       	$action=mysqli_real_escape_string($this->db->link,$action);
 
 			$query="SELECT * FROM services where id='$id'";
 			$getdata=$this->db->select($query);
 	  		if($getdata){
 	  			while ($value=$getdata->fetch_assoc()) {
 			    	$dellink=$value['image'];
-			    	unlink('admin/upload/' . $dellink);
+			    	if($action == 'admin'){
+			    		unlink('upload/' . $dellink);
+			    	}else{
+			    		unlink('admin/upload/' . $dellink);
+			    	}
 	      		}
 	    	}
 
@@ -257,10 +264,19 @@
 	  		$deldata=$this->db->delete($delquery);
 	  		if($deldata){
 	   			$this->fm->setMsg('msg','Service Deleted SuccessFully!!');
-	   			$this->fm->redirect('index.php');
+	   			if($action == 'admin'){
+		    		$this->fm->redirect('service.php');
+		    	}else{
+		    		$this->fm->redirect('provider_password.php');
+		    	}
+
 	  		}else{
 				$this->fm->setMsg('msg_notify','Something Went Wrong');
-	   			$this->fm->redirect('index.php');
+	   			if($action == 'admin'){
+		    		$this->fm->redirect('service.php');
+		    	}else{
+		    		$this->fm->redirect('provider_password.php');
+		    	}
 			}
 		}
 
@@ -366,7 +382,7 @@
 			  		if($getdata){
 			  			while ($value=$getdata->fetch_assoc()) {
 					    	$dellink=$value['image'];
-					    	unlink('admin/upload' . $dellink);
+					    	unlink('admin/upload/' . $dellink);
 			      		}
 			    	}
 			    	move_uploaded_file($file_temp, $uploaded_image);
@@ -404,7 +420,7 @@
 	                	$this->fm->setMsg('msg','Service Updated SuccessFully!!');
 	                	$this->fm->redirect('service.php');
 	                }else{
-	                	$this->fm->setMsg('msg_notiffy','Something WentWrong!!');
+	                	$this->fm->setMsg('msg_notify','Something WentWrong!!');
 	                	$this->fm->redirect('service.php');
 	                }
 				}
@@ -414,6 +430,24 @@
 		    }
 
 
+		}
+
+
+		public function editServiceType($id){
+			$id=$this->fm->validation($id);
+		    $id=mysqli_real_escape_string($this->db->link,$id);
+
+		    $query = "UPDATE services SET
+		    		is_active = 1 - is_active
+		    		WHERE id='$id'";
+		   	$result = $this->db->update($query);
+		   	if($result){
+				$this->fm->setMsg('msg_notify','Service Updated!!');
+	            $this->fm->redirect('service.php');
+		   	}else{
+				$this->fm->setMsg('msg_notify','Something WentWrong!!');
+	            $this->fm->redirect('service.php');
+		   	}
 		}
 
 

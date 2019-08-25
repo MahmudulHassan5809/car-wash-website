@@ -9,7 +9,11 @@
 <main>
 	<div class="container">
 		<div class="mt-5 wow fadeIn">
+			<?php echo $fm->getMsg('msg'); ?>
+
+			<?php echo $fm->getMsg('msg_notify'); ?>
 			<div class="row">
+
 				<div class="col-md-6">
 					<h3 class="text-center">Your Serv<i class="fas fa-tools"></i>ices</h3>
 					<hr class="hr-dark">
@@ -44,6 +48,8 @@
 							    </p>
 
 							    <a href="edit_service.php?id=<?php echo $value['id'] ;?>" class="btn btn-dark">Edit</a>
+
+							    <a href="delete_service.php?id=<?php echo $value['id'] ;?>" class="btn btn-dark">Delete</a>
 
 							</div>
 
