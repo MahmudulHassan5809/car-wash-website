@@ -37,6 +37,8 @@
 					<?php
 
 						echo $fm->getMsg('msg_notify');
+
+						echo $fm->getMsg('msg');
 						//getting errors on form
 					    $err = $fm->getMsg('errors');
 
@@ -48,6 +50,8 @@
 					?>
 				<form method="POST" enctype="multipart/form-data">
 
+
+
 					<div class="form-group">
 						<input
 						type="text"
@@ -58,6 +62,19 @@
 
 						<span class="invalid-feedback">
 	                    	<?php echo($err['name_error']); ?>
+	                    </span>
+					</div>
+
+					<div class="form-group">
+						<input
+						type="text"
+						name="area"
+						placeholder="Service Area"
+						class="form-control <?php echo(isset($err['area_error'])) ? 'is-invalid' : ''; ?>"
+						value="<?php echo($value['area']); ?>">
+
+						<span class="invalid-feedback">
+	                    	<?php echo($err['area_error']); ?>
 	                    </span>
 					</div>
 

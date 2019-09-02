@@ -38,6 +38,11 @@
        		$category_id=$this->fm->validation($data['category_id']);
        		$category_id=mysqli_real_escape_string($this->db->link,$category_id);
 
+       		$area=$this->fm->validation($data['area']);
+       		$area=mysqli_real_escape_string($this->db->link,$area);
+
+       		$area = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower($area))));
+
        		$location=$this->fm->validation($data['location']);
        		$location=mysqli_real_escape_string($this->db->link,$location);
 
@@ -80,6 +85,11 @@
 		  		$errors['phone_error'] = "Please Provide A Phone Number";
 		  	}
 
+		  	//Area Errors
+       		if (empty($area)) {
+		  		$errors['area_error'] = "Area Field Must Be Filled";
+		  	}
+
 		  	//Location Errors
        		if (empty($location)) {
 		  		$errors['location_error'] = "Location Field Must Be Filled";
@@ -112,8 +122,8 @@
 
 			if(count($errors) == 0){
 				move_uploaded_file($file_temp, $uploaded_image);
-				$query = "INSERT INTO services(name,location,phone,category_id,user_id,description,price,image)
-						VALUES('$name','$location','$phone','$category_id','$user_id','$description','$price','$unique_image')";
+				$query = "INSERT INTO services(name,location,phone,category_id,user_id,description,price,image,area)
+						VALUES('$name','$location','$phone','$category_id','$user_id','$description','$price','$unique_image','$area')";
 				$result=$this->db->insert($query);
 				if($result){
 					$this->fm->setMsg('msg','Service Added SuucessFully!');
@@ -297,6 +307,11 @@
 	   		$name=$this->fm->validation($data['name']);
 	   		$name=mysqli_real_escape_string($this->db->link,$name);
 
+	   		$area=$this->fm->validation($data['area']);
+	   		$area=mysqli_real_escape_string($this->db->link,$area);
+
+	   		$area = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower($area))));
+
 	   		$location=$this->fm->validation($data['location']);
 	   		$location=mysqli_real_escape_string($this->db->link,$location);
 
@@ -335,6 +350,11 @@
 			//Name Errors
 	   		if (empty($name)) {
 		  		$errors['name_error'] = "Name Field Must Be Filled";
+		  	}
+
+		  	//Area Errors
+	   		if (empty($area)) {
+		  		$errors['larea_error'] = "Please Add A Service Area";
 		  	}
 
 		  	//Location Errors
@@ -394,15 +414,16 @@
 	                    category_id='$category_id',
 	                    description='$description',
 	                    price='$price',
-	                    image='$unique_image'
+	                    image='$unique_image',
+	                    area='$area'
 	                    WHERE id='$id' AND user_id='$user_id'";
 	                $result=$this->db->update($query);
 	                if($result){
 	                	$this->fm->setMsg('msg','Service Updated SuccessFully!!');
-	                	$this->fm->redirect('service.php');
+	                	$this->fm->redirect('edit_service.php?id='. $id );
 	                }else{
 	                	$this->fm->setMsg('msg_notiffy','Something WentWrong!!');
-	                	$this->fm->redirect('service.php');
+	                	$this->fm->redirect('edit_service.php?id='. $id );
 	                }
 				}else{
 					$query="UPDATE services
@@ -413,15 +434,16 @@
 	                    category_id='$category_id',
 	                    user_id='$user_id',
 	                    description='$description',
-	                    price='$price'
+	                    price='$price',
+	                    area='$area'
 	                    WHERE id='$id' AND user_id='$user_id'";
 	                $result=$this->db->update($query);
 	                if($result){
 	                	$this->fm->setMsg('msg','Service Updated SuccessFully!!');
-	                	$this->fm->redirect('service.php');
+	                	$this->fm->redirect('edit_service.php?id='. $id );
 	                }else{
 	                	$this->fm->setMsg('msg_notify','Something WentWrong!!');
-	                	$this->fm->redirect('service.php');
+	                	$this->fm->redirect('edit_service.php?id='. $id );
 	                }
 				}
 		    }else{
@@ -466,11 +488,33 @@
 		}
 
 
+		public function getAllArea(){
+			$query = "SELECT DISTINCT area FROM services";
+			$result = $this->db->select($query);
+			return $result;
+		}
+
+
 		public function searchService($data){
 			$q=$this->fm->validation($data['q']);
        		$q=mysqli_real_escape_string($this->db->link,$q);
 
-       		$query = "SELECT * FROM services WHERE name like '%".$q."%' OR description like '%".$q."%'";
+       		$area=$this->fm->validation($data['area']);
+       		$area=mysqli_real_escape_string($this->db->link,$area);
+
+       		$query = "";
+
+       		if(!empty($q)){//if keyword set goes here
+				$query = "SELECT * FROM services WHERE name LIKE '%$q%' OR description LIKE '%$q%' OR price LIKE '%$q%' ";
+				if(isset($area)){
+				 $query .= "AND area='$area'";
+				}
+
+			}else if (!empty($area)){
+				$query = "SELECT * FROM services WHERE area='$area'";
+
+			}
+
        		$result = $this->db->select($query);
        		return $result;
 		}

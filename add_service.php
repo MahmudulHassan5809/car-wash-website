@@ -58,6 +58,19 @@
 						<div class="form-group">
 							<input
 							type="text"
+							name="area"
+							placeholder="Service Area"
+							class="form-control <?php echo(isset($err['area_error'])) ? 'is-invalid' : ''; ?>"
+							value="<?php echo($data['area']); ?>">
+
+							<span class="invalid-feedback">
+		                    	<?php echo($err['area_error']); ?>
+		                    </span>
+						</div>
+
+						<div class="form-group">
+							<input
+							type="text"
 							name="location"
 							placeholder="Service Location"
 							class="form-control <?php echo(isset($err['location_error'])) ? 'is-invalid' : ''; ?>"

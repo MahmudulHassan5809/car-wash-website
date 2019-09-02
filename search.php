@@ -36,9 +36,10 @@
 
 					<div class="row">
 						<?php
-						if (isset($searchService)) {
-							while($value = $searchService->fetch_assoc()) { ?>
 
+						if (isset($searchService)) {
+							if($searchService == true){
+							while($value = $searchService->fetch_assoc()) { ?>
 
 							<div class="col-md-6">
 								<!-- Card Light -->
@@ -82,7 +83,7 @@
 								<!-- Card Light -->
 							</div>
 
-						<?php } } ?>
+						<?php } } } ?>
 					</div>
 
 

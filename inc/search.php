@@ -1,70 +1,47 @@
-<style type="text/css">
-	.searchbar{
-    margin-bottom: auto;
-    margin-top: auto;
-    height: 60px;
-    background-color: #353b48;
-    border-radius: 30px;
-    padding: 10px;
-    }
+<div class="container mt-5">
 
-    .search_input{
-    color: white;
-    border: 0;
-    outline: 0;
-    background: none;
-    width: 0;
-    caret-color:transparent;
-    line-height: 40px;
-    transition: width 0.4s linear;
-    }
+  <div class="row">
 
-    .searchbar:hover > .search_input{
-    padding: 0 10px;
-    width: 450px;
-    caret-color:red;
-    transition: width 0.4s linear;
-    }
+    <div class="col-md-12">
+        <div class="card py-5 unique-color">
 
-    .searchbar:hover > .search_icon{
-    background: white;
-    color: #e74c3c;
-    }
+            <div class="card-block">
+                <h4 class="card-title text-center">Search Your Service</h4>
+                <form action="search.php" method="POST">
+                     <div class="row">
+                        <div class="col-md-5 ml-auto">
+                            <select class="form-control" name="area">
+                                <option value="" selected>Choose Area</option>
+                                <?php
+                                $getAllArea = $service->getAllArea();
+                                if($getAllArea){
+                                    while ($value = $getAllArea->fetch_assoc()) { ?>
 
-    .search_icon{
-    height: 40px;
-    width: 40px;
-    float: right;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    color:white;
-    }
+                                        <option value="<?php echo $value['area']; ?>"><?php echo $value['area']; ?></option>
 
-    button, input[type="submit"]{
-	background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
-}
-</style>
+                                    <?php } } ?>
+                                </select>
+                        </div>
+                        <div class="col-md-5 mr-auto">
+                            <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">service</span>
+                                </div>
+                                <input name="q" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+                       <div class="col-md-10 mx-auto">
+                            <input type="submit" value="Search" name="search" class="btn btn-dark">
+                       </div>
+                    </div>
+                </form>
+            </div>
 
+        </div>
+    </div>
 
-
-
-<div class="container h-100 mt-5">
-      <div class="d-flex justify-content-center h-100">
-        <form action="search.php" method="POST">
-        	<div class="searchbar">
-				<input class="search_input" type="text" name="q" placeholder="Search...">
-
-				<button type="submit" name="search" class="search_icon"><i class="fas fa-search"></i></button>
-
-	        </div>
-        </form>
-      </div>
 </div>
+
+</div>
+
+

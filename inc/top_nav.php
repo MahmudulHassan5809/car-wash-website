@@ -31,7 +31,7 @@
                     <?php endif ?>
                          <li class="nav-item">
                           <a class="nav-link" href="<?php echo URLROOT ?>/profile.php">Profile</a>
-                        </li>   
+                        </li>
 
                 <?php endif ?>
 
@@ -61,13 +61,13 @@
                     <?php if ($user->checkNormalUser() === false): ?>
                         <li class="nav-item">
                             <a href="<?php echo(URLROOT);?>/provider_dashboard.php" class="nav-link" title="Provider Dashboard">
-                                <i class="fas fa-chalkboard-teacher"></i>
+                               Provider Dashboard
                             </a>
                         </li>
                      <?php endif ?>
                         <li class="nav-item">
                             <a href="<?php echo(URLROOT);?>/user_dashboard.php" class="nav-link" title="User Dashboard">
-                                <i class="fas fa-chalkboard-teacher"></i>
+                                User Dashboard
                             </a>
                         </li>
 

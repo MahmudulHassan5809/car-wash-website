@@ -25,6 +25,9 @@
 	<link rel="stylesheet" href="assets/css/summernote.css">
 	<link rel="stylesheet" href="assets/css/style.css">
 
+	<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDboB-NH7QTHBicpj7X9-B8bQVt-JeLulc&callback=initMap">
+	</script>
 
 	</style>
 </head>

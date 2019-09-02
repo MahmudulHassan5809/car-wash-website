@@ -38,6 +38,7 @@
 				</h1>
 				<hr class="hr-dark">
 				<div class="row">
+
 					<div class="col-md-5">
 						<img class="img-fluid" src="admin/upload/<?php echo $value['image'] ?>" alt="">
 					</div>
